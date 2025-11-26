@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "Water Glass Visualizer",
-        "width": 800,
-        "height": 600,
+        "width": 700,
+        "height": 650,
         "resizable": true,
         "fullscreen": false
       }
