@@ -47,4 +47,5 @@ export default defineConfig({
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_ENV_DEBUG,
   },
+  base: "/water-glass-problem/",
 });
