@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "antd": "^6.0.0",
