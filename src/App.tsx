@@ -2,6 +2,7 @@ import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import WaterGlass from "./WaterGlass";
 import TriangleProblem from "./TriangleProblem";
+import Prioritati from "./Prioritati";
 
 export default function App() {
   const items: TabsProps["items"] = [
@@ -14,6 +15,11 @@ export default function App() {
       key: "2",
       label: "Triangle Problem",
       children: <TriangleProblem />,
+    },
+    {
+      key: "3",
+      label: "Priorități",
+      children: <Prioritati />,
     },
   ];
 
