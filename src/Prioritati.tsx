@@ -73,37 +73,47 @@ const Intersection = ({
     sign1 === "stop"
       ? oprire
       : sign1 === "ct"
-      ? cedeazaTrecerea
-      : drumCuPrioritate;
+        ? cedeazaTrecerea
+        : drumCuPrioritate;
 
   const imgSign2 =
     sign2 === "none"
       ? undefined
       : sign2 === "left"
-      ? sign1 === "dp"
-        ? panouAditional3
-        : panouAditional1
-      : sign1 === "dp"
-      ? panouAditional4
-      : panouAditional2;
+        ? sign1 === "dp"
+          ? panouAditional3
+          : panouAditional1
+        : sign1 === "dp"
+          ? panouAditional4
+          : panouAditional2;
 
   return (
     <div
       style={{
-        width: 800,
+        width: "100%",
+        maxWidth: 800,
+        aspectRatio: "800 / 600",
         border: "1px solid black",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
       <img
         src={intersectie}
         alt="intersectie"
-        style={{ width: "100%", height: "100%" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          // objectFit: "cover",
+          display: "block",
+        }}
       />
+
       <div
         style={{
           position: "absolute",
-          left: 550,
-          top: 420,
+          left: "66.75%",
+          top: "67.33%",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -113,62 +123,61 @@ const Intersection = ({
         <img
           src={imgSign1}
           alt={`img-${sign1}`}
-          style={{
-            height: 60,
-          }}
+          style={{ height: "10vw", maxHeight: 60, minHeight: 32 }}
         />
         {imgSign2 && (
           <img
             src={imgSign2}
             alt={`img-${sign1}-${sign2}`}
-            style={{
-              height: 45,
-            }}
+            style={{ height: "7.5vw", maxHeight: 45, minHeight: 24 }}
           />
         )}
       </div>
+
       <Car
         blinker={botBlinker}
         style={{
-          height: 180,
+          height: "30%",
           position: "absolute",
-          left: 450,
-          top: 430,
+          left: "52%",
+          top: "67%",
           transform: "rotate(180deg)",
         }}
       />
+
       {topBlinker && (
         <Car
           blinker={topBlinker}
           style={{
-            height: 130,
+            height: "21.67%",
             position: "absolute",
-            left: 370,
-            top: 110,
-            transform: "rotate(0deg)",
+            left: "42%",
+            top: "14%",
           }}
         />
       )}
+
       {leftBlinker && (
         <Car
           blinker={leftBlinker}
           style={{
-            height: 150,
+            height: "25%",
             position: "absolute",
-            left: 200,
-            top: 290,
+            left: "22%",
+            top: "43%",
             transform: "rotate(270deg)",
           }}
         />
       )}
+
       {rightBlinker && (
         <Car
           blinker={rightBlinker}
           style={{
-            height: 150,
+            height: "25%",
             position: "absolute",
-            left: 590,
-            top: 213,
+            left: "70%",
+            top: "30%",
             transform: "rotate(90deg)",
           }}
         />
@@ -196,7 +205,7 @@ const IntersectionEditor = ({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "auto 200px",
+          gridTemplateColumns: "minmax(120px, auto) minmax(0, 1fr)",
           gap: 8,
           alignItems: "center",
           alignContent: "start",
@@ -205,7 +214,7 @@ const IntersectionEditor = ({
         <Typography>Indicator prioritate:</Typography>
         <Select
           value={sign1}
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           onChange={(v) => {
             onChange({ ...value, sign1: v as Sign1 });
           }}
@@ -218,7 +227,7 @@ const IntersectionEditor = ({
         <Typography>Panou adițional:</Typography>
         <Select
           value={sign2}
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           onChange={(v) => {
             onChange({ ...value, sign2: v as Sign2 });
           }}
@@ -231,7 +240,7 @@ const IntersectionEditor = ({
         <Typography>Mașina șofer:</Typography>
         <Select
           value={botBlinker}
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           onChange={(v) => {
             onChange({ ...value, botBlinker: v as Blinker });
           }}
@@ -244,7 +253,7 @@ const IntersectionEditor = ({
         <Typography>Mașina stânga:</Typography>
         <Select
           value={leftBlinker ?? "undefined"}
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           onChange={(v) => {
             onChange({
               ...value,
@@ -261,7 +270,7 @@ const IntersectionEditor = ({
         <Typography>Mașina față:</Typography>
         <Select
           value={topBlinker ?? "undefined"}
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           onChange={(v) => {
             onChange({
               ...value,
@@ -278,7 +287,7 @@ const IntersectionEditor = ({
         <Typography>Mașina dreapta:</Typography>
         <Select
           value={rightBlinker ?? "undefined"}
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           onChange={(v) => {
             onChange({
               ...value,
@@ -311,7 +320,7 @@ const GeneratorEditor = ({ value, onChange, style }: GeneratorEditorProps) => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "auto 200px",
+          gridTemplateColumns: "minmax(120px, auto) minmax(0, 1fr)",
           gap: 8,
           alignItems: "center",
           alignContent: "start",
@@ -320,7 +329,7 @@ const GeneratorEditor = ({ value, onChange, style }: GeneratorEditorProps) => {
         <Typography>Număr mașini:</Typography>
         <Select
           value={`${cars}`}
-          style={{ width: 200 }}
+          style={{ width: "100%" }}
           onChange={(v) => {
             onChange({ ...value, cars: Number.parseInt(v) });
           }}
@@ -339,7 +348,7 @@ const generateIntersection = ({
   cars,
 }: GeneratorSettings): IntersectionProps => {
   let blinkers: (Blinker | undefined)[] = _.times(cars, () =>
-    _.sample(["none", "left", "right"])
+    _.sample(["none", "left", "right"]),
   );
   while (blinkers.length < 3) blinkers.push(undefined);
   blinkers = _.shuffle(blinkers);
@@ -355,7 +364,7 @@ const generateIntersection = ({
 };
 
 const solveIntersection = (
-  intersectionProps: IntersectionProps
+  intersectionProps: IntersectionProps,
 ): { answer: "go" | "stop"; explanation: string } => {
   const { sign1, sign2, botBlinker, leftBlinker, topBlinker, rightBlinker } =
     intersectionProps;
@@ -373,11 +382,11 @@ const solveIntersection = (
       )
         explanations.push(
           msg +
-            " Traiectoriile nu se intersectează. Pot porni cu atenție, dacă am loc."
+            " Traiectoriile nu se intersectează. Pot porni cu atenție, dacă am loc.",
         );
       else {
         explanations.push(
-          msg + " Traiectoriile se interesectează. Trebuie să opresc."
+          msg + " Traiectoriile se interesectează. Trebuie să opresc.",
         );
         stop = true;
       }
@@ -387,7 +396,7 @@ const solveIntersection = (
   if (topBlinker) {
     if (sign2 === "none" && botBlinker === "left" && topBlinker === "left")
       explanations.push(
-        "Mașina din față are același nivel de prioritate ca mine. Efectuăm virajul pe lângă centrul imaginar al intersecției."
+        "Mașina din față are același nivel de prioritate ca mine. Efectuăm virajul pe lângă centrul imaginar al intersecției.",
       );
     else if (
       (sign2 === "none" && botBlinker !== "left") ||
@@ -399,11 +408,11 @@ const solveIntersection = (
       if ((botBlinker === "left") === (topBlinker === "left"))
         explanations.push(
           msg +
-            " Traiectoriile nu se intersectează. Pot porni cu atenție, dacă am loc."
+            " Traiectoriile nu se intersectează. Pot porni cu atenție, dacă am loc.",
         );
       else {
         explanations.push(
-          msg + " Traiectoriile se intersectează. Trebuie să opresc."
+          msg + " Traiectoriile se intersectează. Trebuie să opresc.",
         );
         stop = true;
       }
@@ -421,11 +430,11 @@ const solveIntersection = (
       )
         explanations.push(
           msg +
-            " Traiectoriile nu se intersectează. Pot porni cu atenție, dacă am loc."
+            " Traiectoriile nu se intersectează. Pot porni cu atenție, dacă am loc.",
         );
       else {
         explanations.push(
-          msg + " Traiectoriile se interesectează. Trebuie să opresc."
+          msg + " Traiectoriile se interesectează. Trebuie să opresc.",
         );
         stop = true;
       }
@@ -437,10 +446,10 @@ const solveIntersection = (
 
 export default function Prioritati() {
   const [intersectionProps, setIntersectionProps] = useState<IntersectionProps>(
-    { sign1: "stop", sign2: "none", botBlinker: "left", topBlinker: "left" }
+    { sign1: "stop", sign2: "none", botBlinker: "left", topBlinker: "left" },
   );
   const [generatorSettings, setGeneratorSettings] = useState<GeneratorSettings>(
-    { cars: 1 }
+    { cars: 1 },
   );
   const [answer, setAnswer] = useState<"go" | "stop">();
 
@@ -460,8 +469,65 @@ export default function Prioritati() {
   };
 
   return (
-    <div style={{ height: "100%", width: "100%", padding: 32 }}>
-      <div style={{ display: "flex", gap: 24 }}>
+    <div style={{ minHeight: "100%", width: "100%", padding: 16 }}>
+      <style>{`
+      .prioritati-layout {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      .prioritati-side {
+        width: 320px;
+        flex-shrink: 0;
+      }
+
+      .prioritati-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 800px;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .prioritati-answer-buttons {
+        display: flex;
+        flex: 1;
+        justify-content: space-evenly;
+        gap: 12px;
+      }
+
+      .prioritati-answer-buttons button {
+        width: 300px;
+      }
+
+      @media (max-width: 900px) {
+        .prioritati-layout {
+          flex-direction: column;
+        }
+
+        .prioritati-side {
+          width: 100%;
+        }
+
+        .prioritati-actions {
+          max-width: 100%;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .prioritati-answer-buttons {
+          flex-direction: column;
+        }
+
+        .prioritati-answer-buttons button {
+          width: 100%;
+        }
+      }
+    `}</style>
+
+      <div className="prioritati-layout">
         <Intersection
           sign1={sign1}
           sign2={sign2}
@@ -470,7 +536,8 @@ export default function Prioritati() {
           topBlinker={topBlinker}
           rightBlinker={rightBlinker}
         />
-        <div>
+
+        <div className="prioritati-side">
           <IntersectionEditor
             value={intersectionProps}
             onChange={updateIntersectionProps}
@@ -482,28 +549,12 @@ export default function Prioritati() {
           />
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: 800,
-          gap: 12,
-          marginTop: 12,
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flex: 1,
-            justifyContent: "space-evenly",
-            gap: 12,
-          }}
-        >
+
+      <div className="prioritati-actions">
+        <div className="prioritati-answer-buttons">
           <Button
             disabled={!!answer}
             type="primary"
-            style={{ width: 300 }}
             onClick={() => setAnswer("go")}
           >
             GO!
@@ -512,7 +563,6 @@ export default function Prioritati() {
             disabled={!!answer}
             type="primary"
             danger
-            style={{ width: 300 }}
             onClick={() => setAnswer("stop")}
           >
             STOP
@@ -523,6 +573,7 @@ export default function Prioritati() {
           <ArrowRightOutlined />
         </Button>
       </div>
+
       {answer && (
         <Typography style={{ marginTop: 12, whiteSpace: "pre-wrap" }}>
           {answer === correctAnswer
