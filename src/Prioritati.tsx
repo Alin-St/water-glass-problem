@@ -186,6 +186,14 @@ const Intersection = ({
   );
 };
 
+const closeMobileSelect = () => {
+  setTimeout(() => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  }, 0);
+};
+
 type IntersectionEditorProps = {
   value: IntersectionProps;
   onChange: (newValue: IntersectionProps) => void;
@@ -218,6 +226,7 @@ const IntersectionEditor = ({
           onChange={(v) => {
             onChange({ ...value, sign1: v as Sign1 });
           }}
+          onSelect={closeMobileSelect}
           options={[
             { value: "stop", label: "Oprire" },
             { value: "ct", label: "Cedează trecerea" },
@@ -231,6 +240,7 @@ const IntersectionEditor = ({
           onChange={(v) => {
             onChange({ ...value, sign2: v as Sign2 });
           }}
+          onSelect={closeMobileSelect}
           options={[
             { value: "none", label: "Fără" },
             { value: "left", label: "Spre stânga" },
@@ -244,6 +254,7 @@ const IntersectionEditor = ({
           onChange={(v) => {
             onChange({ ...value, botBlinker: v as Blinker });
           }}
+          onSelect={closeMobileSelect}
           options={[
             { value: "none", label: "Merge înainte" },
             { value: "left", label: "Virează stânga" },
@@ -260,6 +271,7 @@ const IntersectionEditor = ({
               leftBlinker: v === "undefined" ? undefined : (v as Blinker),
             });
           }}
+          onSelect={closeMobileSelect}
           options={[
             { value: "undefined", label: "Lipsă" },
             { value: "none", label: "Merge înainte" },
@@ -277,6 +289,7 @@ const IntersectionEditor = ({
               topBlinker: v === "undefined" ? undefined : (v as Blinker),
             });
           }}
+          onSelect={closeMobileSelect}
           options={[
             { value: "undefined", label: "Lipsă" },
             { value: "none", label: "Merge înainte" },
@@ -294,6 +307,7 @@ const IntersectionEditor = ({
               rightBlinker: v === "undefined" ? undefined : (v as Blinker),
             });
           }}
+          onSelect={closeMobileSelect}
           options={[
             { value: "undefined", label: "Lipsă" },
             { value: "none", label: "Merge înainte" },
@@ -333,6 +347,7 @@ const GeneratorEditor = ({ value, onChange, style }: GeneratorEditorProps) => {
           onChange={(v) => {
             onChange({ ...value, cars: Number.parseInt(v) });
           }}
+          onSelect={closeMobileSelect}
           options={[
             { value: "1", label: "1" },
             { value: "2", label: "2" },
